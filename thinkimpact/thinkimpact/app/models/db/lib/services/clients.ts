@@ -1,10 +1,6 @@
 import pool from "../index";
+import { newClient } from "@/types/index";
 
-export type newClient = {
-  id?: string;
-  name: string;
-  logo: string;
-};
 
 export const addNewClient = async (newClient: newClient) => {
   const result = await pool.query<newClient>(

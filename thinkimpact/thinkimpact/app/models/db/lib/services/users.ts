@@ -1,39 +1,8 @@
-import { userInfo } from "os";
 import { pool } from "../index";
 import bcrypt from "bcrypt";
 import jwt, { Secret } from "jsonwebtoken";
 
-export type newUser = {
-  id?: string;
-  first_name: string;
-  last_name?: string;
-  email: string;
-  password: string;
-};
-
-export type modifiedUser = {
-  id?: string;
-  first_name: string;
-  last_name?: string;
-  email: string;
-  password: string;
-  role: string;
-};
-
-type DBUser = {
-  id: string;
-  first_name: string;
-  last_name?: string | null;
-  email: string;
-  password: string;
-  role: string;
-};
-
-export type userInfo = {
-  email: string;
-  password: string;
-};
-
+import { newUser, modifiedUser, DBUser, userInfo } from "@/types/index";
 const hashPassword = async (password: string) => {
   const hashedPassword = await bcrypt.hash(password, 10);
   return hashedPassword;
@@ -77,8 +46,11 @@ export const login = async (userInfo: userInfo) => {
   if (result.rows.length === 0) {
     return null;
   } else {
-    const isMatch =await checkPassword(userInfo.password, result.rows[0].password);
-    
+    const isMatch = await checkPassword(
+      userInfo.password,
+      result.rows[0].password
+    );
+
     if (!isMatch) {
       return null;
     } else {
@@ -129,10 +101,9 @@ export const removeUser = async (id: string) => {
 
   if (isVaild.rows.length === 0) {
     return null;
-  }else {
-const result = await pool.query("delete from users where id=$1", [id]);
+  } else {
+    const result = await pool.query("delete from users where id=$1", [id]);
 
-  return result.rows;
+    return result.rows;
   }
-  
 };

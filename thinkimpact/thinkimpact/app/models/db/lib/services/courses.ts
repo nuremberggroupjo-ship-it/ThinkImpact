@@ -1,19 +1,6 @@
 import pool from "../index";
 
-export type newCourse = {
-  id?: string;
-  title_en: string;
-  title_ar: string;
-  description_en: string;
-  description_ar: string;
-  target_audience_en: string;
-  target_audience_ar: string;
-  delivery_method_en: string;
-  delivery_method_ar: string;
-  duration: string;
-  training_id: string;
-  starting_date: Date;
-};
+import { newCourse } from "@/types/index";
 
 export const addNewCourse = async (newCourse: newCourse) => {
   const result = await pool.query<newCourse>(

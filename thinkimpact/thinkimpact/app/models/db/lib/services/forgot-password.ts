@@ -1,14 +1,7 @@
 import pool from "../index";
 import crypto from "crypto";
+import { user } from "@/types/index";
 
-type user = {
-  id: string;
-  first_name: string;
-  last_name?: string | null;
-  email: string;
-  password: string;
-  role: string;
-};
 
 export const generateToken = async (email: string) => {
   const user = await pool.query<user>(

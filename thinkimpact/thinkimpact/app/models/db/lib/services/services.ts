@@ -1,13 +1,6 @@
 import pool from "../index";
 
-export type newService = {
-  id?: string;
-  name_en: string;
-  name_ar: string;
-  description_en: string;
-  description_ar: string;
-  category_id: string;
-};
+import { newService } from "@/types/index";
 
 export const addNewService = async (newService: newService) => {
   const result = await pool.query<newService>(
@@ -65,3 +58,7 @@ export const deleteService = async (id: string) => {
     return result.rows;
   }
 };
+export const getServiceById = async (id: string) => {
+  const result = await pool.query<newService>("SELECT * FROM services WHERE category_id=$1", [id]);
+  return result.rows;
+}

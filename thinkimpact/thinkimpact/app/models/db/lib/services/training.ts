@@ -1,12 +1,6 @@
 import pool from "../index";
 
-export type newTraining = {
-  id?: string;
-  name_en: string;
-  name_ar: string;
-  description_en: string;
-  description_ar: string;
-};
+import { newTraining } from "@/types/index";
 
 export const addNewTraining = async (newTraining: newTraining) => {
   const result = await pool.query<newTraining>(

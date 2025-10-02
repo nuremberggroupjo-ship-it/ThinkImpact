@@ -1,21 +1,8 @@
 import pool from "../index";
 import bcrypt from "bcrypt";
+import { resetToken } from "@/types/index";
+import { users } from "@/types/index";
 
-type resetToken = {
-  id?: string;
-  user_id: string;
-  token: string;
-  expires_at: Date;
-  created_at: Date;
-};
-
-export type user = {
-  id?: string;
-  first_name: string;
-  last_name?: string;
-  email: string;
-  password: string;
-};
 
 const hashPassword = async (password: string) => {
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -61,7 +48,7 @@ export const changePassword = async (
   oldPassword: string,
   newPassword: string
 ) => {
-  const user = await pool.query<user>("select * from users where users.id=$1", [
+  const user = await pool.query<users>("select * from users where users.id=$1", [
     id,
   ]);
 

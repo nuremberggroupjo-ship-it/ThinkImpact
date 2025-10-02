@@ -1,8 +1,10 @@
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { AppName, AppDescription, AppURL } from "@/lib/constants";
 import { ThemeProvider } from "next-themes";
+import {NextIntlClientProvider} from 'next-intl';
 const inter = Inter({ subsets: ["latin"] });
 
 import NextAuthProviders from "../providers/NextAuthProviders";
@@ -22,6 +24,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className}  antialiased`}>
         <NextAuthProviders>
+        <NextIntlClientProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="light"
@@ -30,6 +33,7 @@ export default function RootLayout({
           >
             {children}
           </ThemeProvider>
+          </NextIntlClientProvider>
         </NextAuthProviders>
       </body>
     </html>
