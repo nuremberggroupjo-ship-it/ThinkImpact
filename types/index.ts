@@ -1,0 +1,150 @@
+export type newClient = {
+  id?: string;
+  name: string;
+  logo: string;
+};
+
+export type newCategory = {
+  id?: string;
+  slug?: string;
+  category_name_en: string;
+  category_name_ar: string;
+  description_en: string;
+  description_ar: string;
+  category_logo: string | null;
+};
+
+export type newCourse = {
+  id?: string;
+  title_en: string;
+  title_ar: string;
+  description_en: string;
+  description_ar: string;
+  target_audience_en: string;
+  target_audience_ar: string;
+  delivery_method_en: string;
+  delivery_method_ar: string;
+  duration: string;
+  training_id: string;
+  starting_date: Date;
+};
+
+export type user = {
+  id: string;
+  first_name: string;
+  last_name?: string | null;
+  email: string;
+  password: string;
+  role: string;
+};
+export type newMember = {
+  id?: string;
+  name_en: string;
+  name_ar: string;
+  description_en: string;
+  description_ar: string;
+  position_en: string;
+  position_ar: string;
+  image: string;
+};
+export type resetToken = {
+  id?: string;
+  user_id: string;
+  token: string;
+  expires_at: Date;
+  created_at: Date;
+};
+
+export type users = {
+  id?: string;
+  first_name: string;
+  last_name?: string;
+  email: string;
+  password: string;
+};
+export type newService = {
+  id?: string;
+  name_en: string;
+  name_ar: string;
+  description_en: string;
+  description_ar: string;
+  category_id: string;
+};
+export type newTraining = {
+  id?: string;
+  name_en: string;
+  name_ar: string;
+  description_en: string;
+  description_ar: string;
+};
+export type newUser = {
+  id?: string;
+  first_name: string;
+  last_name?: string;
+  email: string;
+  password: string;
+};
+
+export type modifiedUser = {
+  id?: string;
+  first_name: string;
+  last_name?: string;
+  email: string;
+  password: string;
+  role: string;
+};
+
+export type DBUser = {
+  id: string;
+  first_name: string;
+  last_name?: string | null;
+  email: string;
+  password: string;
+  role: string;
+};
+
+export type userInfo = {
+  email: string;
+  password: string;
+};
+
+export type BannerData = {
+  id: string;
+  alt: string;
+  image: string;
+  description_en: string;
+  description_ar: string;
+};
+
+export type newBanner = {
+  id?: string;
+  alt: string;
+  description_en: string;
+  description_ar: string;
+  image: string | null;
+  created_at?: Date;
+};
+
+export type getService = {
+  id: string;
+  name_en: string;
+  name_ar: string;
+  description_en: string;
+  description_ar: string;
+  category_id: string;
+  category_name_en: string;
+  category_name_ar: string;
+  category_logo: string;
+  slug: string;
+};
+
+
+export interface editService {
+  id?: string;
+  name_en: string;
+  name_ar: string;
+  category_name_en: string;
+  category_id: string;
+  description_en: string;
+  description_ar: string;
+}
