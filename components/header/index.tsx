@@ -1,22 +1,29 @@
-
 import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import {AppName } from "@/lib/constants";
+import Logo from '@/components/Logo/Logo';
 import ModeToggle from "./modetoggle";
 import Menu from "./menu";
+import LanguageSwitcher from "./languageSwitcher";
 import Navbar from "./navbar";
-import LanguageSwitcher from "./languageSwitcher"; 
+
+import { getAllcategories } from "@/app/models/db/lib/services/consulting";
+import { getAllTraining } from "@/app/models/db/lib/services/training";
 
 export default async function Header() {
+  const categories = await getAllcategories();
+  const trainingData = await getAllTraining();
+
   return (
-    <header className="W-full h-20 flex items-center justify-between px-4 border-b border-b-slate-200 z-50 bg-white ">
-    
-      <Link href="/"><Image src="/images/logo.png" alt={`${AppName} logo`} width={100} height={200} priority={true}/></Link>
-      <div className="hidden md:block"><Navbar/></div>
-      <div  className="hidden md:flex"><ModeToggle   /><LanguageSwitcher/>  </div>
-    
-      <Menu /> 
+    <header className="w-full h-20 flex items-center justify-between px-4 border-b border-b-slate-200 z-50 bg-white">
+      <Logo />
+      <div className="hidden md:block">
+        {/* نمرر البيانات إلى نافبار */}
+        <Navbar categories={categories} trainingData={trainingData} />
+      </div>
+      <div className="hidden md:flex">
+        <ModeToggle />
+        <LanguageSwitcher />
+      </div>
+      <Menu  categories={categories} trainingData={trainingData} />
     </header>
   );
 }

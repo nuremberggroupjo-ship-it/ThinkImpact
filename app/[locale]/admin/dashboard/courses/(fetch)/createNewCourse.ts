@@ -2,7 +2,7 @@
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { authOptions } from "@/app/models/db/authOptions";
-import {  newCourse, newService } from "@/types";
+import { type  newCourse } from "@/types";
 
 
 
@@ -23,8 +23,8 @@ export async function createnewCourse(data: newCourse) {
   );
 console.log("result.ok: ",result.ok);
 
-  if (!result.ok) throw new Error("Failed to create Service");
+  if (!result.ok) throw new Error("Failed to create Course");
 
-  revalidatePath(`/dashboard/services`);
+  revalidatePath(`/dashboard/courses`);
   return await result.json();
 }

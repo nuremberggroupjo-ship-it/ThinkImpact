@@ -32,6 +32,7 @@ export default function CreateNewCategory({ action,categories }: Props) {
     description_en: "",
     description_ar: "",
     category_id: "",
+    image:"",
   });
 
   const [isPending, startTransition] = useTransition();
@@ -44,6 +45,20 @@ export default function CreateNewCategory({ action,categories }: Props) {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+   const handleUploadComplete = (url: string) => {
+    setForm({ ...form, image: url });
+  };
+
+  const handleUploadError = (error: Error) => {
+    console.error(error);
+    setToast({ message: `Upload failed: ${error.message}`, type: "error" });
+    setTimeout(() => setToast(null), 3000);
+  };
+
+  const handleImageDelete = () => {
+    setForm({ ...form, image: "" });
   };
 
   
@@ -66,10 +81,12 @@ export default function CreateNewCategory({ action,categories }: Props) {
     });
   };
 
+
+
   return (
     <main className="ml-3 xl:ml-7 mb-7">
       <div className="flex flex-col justify-start items-start border-b border-gray-500 w-[70vw] mb-7">
-        <h1 className="text-lg md:text-2xl font-bold">Add New Category</h1>
+        <h1 className="text-lg md:text-2xl font-bold">Add New Service</h1>
       </div>
 
       <form
@@ -81,9 +98,9 @@ export default function CreateNewCategory({ action,categories }: Props) {
       >
         <Card className="w-full h-full">
           <CardHeader>
-            <CardTitle>New Category Details</CardTitle>
+            <CardTitle>New Service Details</CardTitle>
             <CardDescription>
-              Fill out the required fields below to create a new Category.
+              Fill out the required fields below to create a new Service.
             </CardDescription>
           </CardHeader>
 
@@ -170,6 +187,18 @@ export default function CreateNewCategory({ action,categories }: Props) {
                 required
               />
             </div>
+
+            <div className="flex flex-col w-full max-w-sm">
+                          <label className="text-base text-black mb-1">Service Image</label>
+                          <ImageUploader
+                            endpoint="services"
+                            initialImageUrl={form.image}
+                            onUploadComplete={handleUploadComplete}
+                            onUploadError={handleUploadError}
+                            onDelete={handleImageDelete}
+                          />
+                        </div>
+            
 
             
 

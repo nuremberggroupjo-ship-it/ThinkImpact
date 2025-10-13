@@ -7,6 +7,8 @@ import { getAllcategories } from "@/app/models/db/lib/services/consulting";
 async function page(prop: { params: Promise<{ id: string }> }) {
   const params = await prop.params;
   const service = await getServiceById(params.id) ;
+  console.log("servicewdw33: ",service);
+  
   const categories= await getAllcategories()
   console.log(" awdwa:",categories);
   

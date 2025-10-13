@@ -13,13 +13,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { SquarePen, Plus, Trash2 } from "lucide-react";
+import { SquarePen, Plus } from "lucide-react";
 import { getAllServices } from "@/app/models/db/lib/services/services";
 import DeleteServiceButton from "@/components/services/deleteServiceForm";
 import { deleteService } from "./(fetch)/deleteService";
-export default async function servicesTable() {
+
+export default async function ServicesTable() {
   const services = await getAllServices();
-  console.log("services: ",services);
+  console.log("services3: ",services);
   
 
   return (
@@ -32,70 +33,72 @@ export default async function servicesTable() {
         </h2>
       </div>
 
-      {/* Table container */}
-      <div className="w-full overflow-x-auto border border-gray-300 rounded-2xl p-2">
-        <div className="min-w-[75vw]">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead className="hidden xl:table-cell">
-                  Description
-                </TableHead>
-                <TableHead>Category</TableHead>
-                <TableHead></TableHead>
-                <TableHead></TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {services.map((service, i) => (
-                <TableRow key={i}>
-                  <TableCell className="text-xs sm:text-base">
-                    {service.name_en}
-                  </TableCell>
-
-                  {/* Description */}
-                  <TableCell className="text-xs sm:text-base hidden xl:table-cell">
-                    {service.description_en?.substring(0, 50)}...
-                  </TableCell>
-
-                  {/* Image */}
-                  <TableCell className="text-xs sm:text-base">
-                    <TableCell className="text-xs sm:text-base">
-                    {service.category_name_en}
-                  </TableCell>
-                  </TableCell>
-
-
-                  {/* Edit Icon */}
-                  <TableCell>
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Link
-                            href={`/admin/dashboard/services/${service.id}`}
-                          >
-                            <SquarePen className="w-5 h-5 text-[#125892] cursor-pointer hover:text-[#125892]" />
-                          </Link>
-                        </TooltipTrigger>
-                        <TooltipContent side="top" align="center">
-                          <p>Edit</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </TableCell>
-
-                  {/* Delete Icon */}
-                  <TableCell>
-                   <DeleteServiceButton serviceId={service.id ?? ""} deleteAction={deleteService} />
-                   
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+      {/* If no services */}
+      {services.length === 0 ? (
+        <div className="w-full text-center py-10 text-gray-500 text-lg min-w-[75vw]">
+          No services found. Please add a new service.
         </div>
-      </div>
+      ) : (
+        /* Table container */
+        <div className="w-full overflow-x-auto border border-gray-300 rounded-2xl p-2">
+          <div className="min-w-[75vw]">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Name</TableHead>
+                  <TableHead className="hidden xl:table-cell">Description</TableHead>
+                  <TableHead>Category</TableHead>
+                  <TableHead></TableHead>
+                  <TableHead></TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {services.map((service, i) => (
+                  <TableRow key={i}>
+                    <TableCell className="text-xs sm:text-base">
+                      {service.name_en}
+                    </TableCell>
+
+                    {/* Description */}
+                    <TableCell className="text-xs sm:text-base hidden xl:table-cell">
+                      {service.description_en?.substring(0, 50)}...
+                    </TableCell>
+
+                    {/* Category */}
+                    <TableCell className="text-xs sm:text-base">
+                      {service.category_name_en}
+                    </TableCell>
+
+                    {/* Edit Icon */}
+                    <TableCell>
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Link href={`/admin/dashboard/services/${service.id}`}>
+                              <SquarePen className="w-5 h-5 text-[#125892] cursor-pointer hover:text-[#0f4473]" />
+                            </Link>
+                          </TooltipTrigger>
+                          <TooltipContent side="top" align="center">
+                            <p>Edit</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </TableCell>
+
+                    {/* Delete Icon */}
+                    <TableCell>
+                      <DeleteServiceButton
+                        serviceId={service.id ?? ""}
+                        deleteAction={deleteService}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </div>
+      )}
 
       {/* Add Button under the table */}
       <div className="w-full flex justify-end mt-4">

@@ -1,4 +1,6 @@
 import React from 'react';
+import Image from 'next/image';
+import test from "@/public/images/logosidebar.png"
 
 interface CardProps {
   title: string;
@@ -7,26 +9,31 @@ interface CardProps {
 
 const FlippingCard: React.FC<CardProps> = ({ title, description }) => {
   return (
-    <div className="relative overflow-hidden w-full max-w-xs h-60 rounded-3xl cursor-pointer text-2xl font-bold bg-[#125892] group">
-      <div className="z-10 absolute w-full h-full peer" />
+    <div className="relative w-full max-w-sm aspect-[3/2] bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden
+                    perspective-[1000px] shadow-[0_0_0_5px_rgba(255,255,255,0.5)]
+                    transition-transform duration-600 ease-[cubic-bezier(0.175,0.885,0.32,1.275)]
+                    hover:scale-[1.05] hover:shadow-[0_8px_16px_rgba(255,255,255,0.2)] group cursor-pointer">
 
-      <div className="absolute group-hover:-top-20 group-hover:-left-16 group-hover:w-[140%] group-hover:h-[140%] -top-32 -left-16 w-32 h-44 rounded-full bg-[#00ADEE] transition-all duration-500" />
-
-      <div
-        className="absolute flex text-xl text-center items-end justify-end
-          group-hover:right-0 group-hover:rounded-b-none group-hover:bottom-0
-          group-hover:items-center group-hover:justify-center group-hover:w-full group-hover:h-full
-          -bottom-32 -right-16 w-36 h-44 rounded-full bg-[#00ADEE]
-          transition-all duration-500 overflow-hidden p-2"
-      >
-        <div className="max-h-0 opacity-0 overflow-hidden group-hover:max-h-60 group-hover:opacity-100 transition-all duration-500 text-sm text-white whitespace-pre-line">
-          {description}
-        </div>
+      <div className='flex flex-col items-center text-center'>
+        <Image
+          src={test}
+          alt="Preload Image"
+          width={50}
+          height={50}
+          priority
+          loading="eager"
+        />
+        <p className='text-xl font-bold text-gray-800 m-0'>{title}</p>
       </div>
 
-      
-      <div className="w-full h-full items-center justify-center flex uppercase text-white px-4 text-center">
-        {title}
+      <div
+        className="absolute top-0 left-0 w-full h-full p-5 box-border bg-gray-200
+                   transform -rotate-x-90 origin-bottom
+                   transition-transform duration-600 ease-[cubic-bezier(0.175,0.885,0.32,1.275)]
+                   group-hover:rotate-x-0
+                   flex flex-col justify-center"
+      >
+        <p className="mt-2 text-sm text-gray-600 leading-relaxed">{description}</p>
       </div>
     </div>
   );

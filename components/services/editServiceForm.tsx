@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import React, { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import ImageUploader from "@/components/imageUpload";
 
 import {
   Select,
@@ -21,20 +22,14 @@ import {
 interface prop {
   service: editService;
   categories: newCategory[];
-  action: (data: {
-    id?: string;
-    name_en: string;
-    name_ar: string;
-    category_name_en: string;
-    category_id: string;
-    description_en: string;
-    description_ar: string;
-  }) => Promise<void>;
+  action: (data: editService) => Promise<void>;
 }
 
 function editServiceForm({ service, action, categories }: prop) {
+  console.log("service: ", service);
+
   console.log("categories: ", categories);
-  console.log("service.categoryId: ", service.category_id);
+  // console.log("service.categoryId: ", service.category_id);
 
   const router = useRouter();
   const [form, setForm] = useState<editService>({
@@ -45,6 +40,7 @@ function editServiceForm({ service, action, categories }: prop) {
     name_en: service.name_en,
     name_ar: service.name_ar,
     category_id: service.category_id,
+    image: service.image,
   });
 
   const [isPending, startTransition] = useTransition();
@@ -57,6 +53,20 @@ function editServiceForm({ service, action, categories }: prop) {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleUploadComplete = (url: string) => {
+    setForm({ ...form, image: url });
+  };
+
+  const handleUploadError = (error: Error) => {
+    console.error(error);
+    setToast({ message: `Upload failed: ${error.message}`, type: "error" });
+    setTimeout(() => setToast(null), 3000);
+  };
+
+  const handleImageDelete = () => {
+    setForm({ ...form, image: "" });
   };
 
   console.log("wdawd: ", categories[0].id);
@@ -172,6 +182,7 @@ function editServiceForm({ service, action, categories }: prop) {
                 required
               />
             </div>
+            
 
             <div className="flex flex-col">
               <label className="text-base text-black mb-1">
@@ -187,13 +198,24 @@ function editServiceForm({ service, action, categories }: prop) {
               />
             </div>
 
+             <div className="flex flex-col w-full max-w-sm">
+              <label className="text-base text-black mb-1">Service Image</label>
+              <ImageUploader
+                endpoint="services"
+                initialImageUrl={form.image}
+                onUploadComplete={handleUploadComplete}
+                onUploadError={handleUploadError}
+                onDelete={handleImageDelete}
+              />
+            </div>
+
             <div className="w-full flex justify-center mt-5 ">
               <div className="flex flex-row gap-3">
                 <button
                   type="button"
                   className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 cursor-pointer"
                   onClick={() => {
-                    router.replace("/admin/dashboard/banners");
+                    router.replace("/admin/dashboard/services");
                   }}
                 >
                   Cancel

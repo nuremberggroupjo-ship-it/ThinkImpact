@@ -22,11 +22,14 @@ import {
   BookOpen,
   PenLine,
   Crown,
+  House,
+  Settings
 } from "lucide-react";
 
 import logoDash from "@/public/images/logosidebar.png";
 
 const items = [
+  { title: "Home", url: "/", icon: House },
   { title: "Dashboard", url: "/admin/dashboard", icon: LayoutDashboard },
   { title: "Users", url: "/admin/dashboard/users", icon: UserCheck },
   { title: "Banners", url: "/admin/dashboard/banners", icon: Ticket },
@@ -34,8 +37,9 @@ const items = [
   { title: "Services", url: "/admin/dashboard/services", icon: Handshake },
   { title: "Training", url: "/admin/dashboard/training", icon: PenLine },
   { title: "Courses", url: "/admin/dashboard/courses", icon: BookOpen },
-  { title: "My Team", url: "/admin/dashboard/myTeam", icon: Users },
+  { title: "My Team", url: "/admin/dashboard/ourTeam", icon: Users },
   { title: "Clients", url: "/admin/dashboard/clients", icon: Crown },
+  { title: "Settings", url: "/admin/dashboard/settings", icon: Settings },
 ];
 
 export function AppSidebar() {

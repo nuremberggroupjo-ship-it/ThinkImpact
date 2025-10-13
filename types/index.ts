@@ -1,7 +1,7 @@
 export type newClient = {
   id?: string;
   name: string;
-  logo: string;
+  logo: string ;
 };
 
 export type newCategory = {
@@ -20,13 +20,14 @@ export type newCourse = {
   title_ar: string;
   description_en: string;
   description_ar: string;
-  target_audience_en: string;
-  target_audience_ar: string;
-  delivery_method_en: string;
-  delivery_method_ar: string;
-  duration: string;
+  target_audience_en: string[];
+  target_audience_ar: string[];
+  delivery_method_en: string[];
+  delivery_method_ar: string[];
+  duration_en: string;
+  duration_ar: string;
   training_id: string;
-  starting_date: Date;
+  image:string
 };
 
 export type user = {
@@ -46,7 +47,26 @@ export type newMember = {
   position_en: string;
   position_ar: string;
   image: string;
+  display_order?:number;
+  main:boolean
 };
+
+
+export type newMemberDragAndDrop = {
+  id: string;
+  name_en: string;
+  name_ar: string;
+  description_en: string;
+  description_ar: string;
+  position_en: string;
+  position_ar: string;
+  image: string;
+  display_order?:number,
+  main:boolean
+
+};
+
+
 export type resetToken = {
   id?: string;
   user_id: string;
@@ -69,6 +89,7 @@ export type newService = {
   description_en: string;
   description_ar: string;
   category_id: string;
+  image:string
 };
 export type newTraining = {
   id?: string;
@@ -147,4 +168,65 @@ export interface editService {
   category_id: string;
   description_en: string;
   description_ar: string;
+  image:string
+}
+
+export interface editCourse {
+   id?: string;
+  title_en: string;
+  title_ar: string;
+  description_en: string;
+  description_ar: string;
+  target_audience_en: string[];
+  target_audience_ar: string[];
+  delivery_method_en: string[];
+  delivery_method_ar: string[];
+  duration_en: string;
+  duration_ar: string;
+  training_id: string;
+  training_name_en:string,
+  image:string
+}
+
+
+export interface getCourses{
+   id?: string;
+  title_en: string;
+  title_ar: string;
+  description_en: string;
+  description_ar: string;
+  target_audience_en: string[];
+  target_audience_ar: string[];
+  delivery_method_en: string[];
+  delivery_method_ar: string[];
+  duration_en: string;
+  duration_ar: string;
+  training_id: string;
+   training_name_en: string;
+  training_name_ar: string;
+  training_description_en: string;
+  training_description_ar: string;
+}
+
+
+export type getClients={
+ id?: string;
+  name: string;
+  logo: string;
+  created_at:Date
+}
+
+
+export type memeberOrder = {
+  id: string;
+  display_order: number;
+};
+
+export type newSetting={
+  id?:string,
+  key_name_en?:string,
+  key_name_ar?:string,
+  value_en?:string,
+  value_ar?:string,
+  created_at?:Date
 }

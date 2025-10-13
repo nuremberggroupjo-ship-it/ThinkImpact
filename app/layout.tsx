@@ -1,13 +1,11 @@
-
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { AppName, AppDescription, AppURL } from "@/lib/constants";
 import { ThemeProvider } from "next-themes";
-import {NextIntlClientProvider} from 'next-intl';
-const inter = Inter({ subsets: ["latin"] });
-
+import { NextIntlClientProvider } from "next-intl";
 import NextAuthProviders from "../providers/NextAuthProviders";
+
+import FontSwitcher from "@/components/fontswitcher/FontSwitcher";
 
 export const metadata: Metadata = {
   title: { template: `%s | ${AppName}`, default: AppName },
@@ -17,22 +15,22 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className}  antialiased`}>
+      <body className="antialiased">
         <NextAuthProviders>
-        <NextIntlClientProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
+          <NextIntlClientProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="light"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <FontSwitcher>{children}</FontSwitcher>
+            </ThemeProvider>
           </NextIntlClientProvider>
         </NextAuthProviders>
       </body>

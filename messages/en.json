@@ -1,5 +1,11 @@
 {
-    "HomePage": {
-      "title": "Hello world!"
-    }
+  "Navbar": {
+    "home": "Home",
+    "consulting": "Consulting",
+    "training": "Training",
+    "about": "About",
+    "ourTeam": "Our Team",
+    "menu": "Menu",
+    "menuDescription": "Use the menu to navigate the site"
   }
+}

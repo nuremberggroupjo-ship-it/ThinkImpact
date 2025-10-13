@@ -41,7 +41,7 @@ const Logo: React.FC = () => {
     >
       
         <Image
-          src="/images/logo.png"
+          src="/images/logosidebar.png"
           alt={`${AppName} logo`}
           width={40}
           height={40}
