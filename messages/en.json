@@ -7,5 +7,10 @@
     "ourTeam": "Our Team",
     "menu": "Menu",
     "menuDescription": "Use the menu to navigate the site"
+  },
+  "stats": {
+    "projects": "Projects Completed",
+    "clients": "Clients Served",
+    "experience": "Years of Experience"
   }
 }

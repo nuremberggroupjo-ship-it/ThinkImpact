@@ -1,22 +1,18 @@
 "use client";
 
-import { useLocale } from "next-intl";
-import { useEffect } from "react";
 import { Inter, Cairo } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 const cairo = Cairo({ subsets: ["arabic"], weight: ["400", "700"] });
 
-export default function FontSwitcher({ children }: { children: React.ReactNode }) {
-  const locale = useLocale();
-  const isArabic = locale === "ar";
+export default function FontSwitcher({
+  children,
+  locale,
+}: {
+  children: React.ReactNode;
+  locale: string;
+}) {
+  const fontClass = locale === "ar" ? cairo.className : inter.className;
 
-  useEffect(() => {
-    const classToAdd = isArabic ? cairo.className : inter.className;
-
-    document.documentElement.classList.remove(inter.className, cairo.className);
-    document.documentElement.classList.add(classToAdd);
-  }, [isArabic]);
-
-  return children;
+  return <div className={fontClass}>{children}</div>;
 }

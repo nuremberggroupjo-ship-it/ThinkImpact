@@ -23,6 +23,7 @@ import {
   PenLine,
   Crown,
   House,
+  FilePen,
   Settings
 } from "lucide-react";
 
@@ -39,6 +40,7 @@ const items = [
   { title: "Courses", url: "/admin/dashboard/courses", icon: BookOpen },
   { title: "My Team", url: "/admin/dashboard/ourTeam", icon: Users },
   { title: "Clients", url: "/admin/dashboard/clients", icon: Crown },
+  { title: "Applications", url: "/admin/dashboard/applications", icon: FilePen },
   { title: "Settings", url: "/admin/dashboard/settings", icon: Settings },
 ];
 

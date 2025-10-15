@@ -29,7 +29,7 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <FontSwitcher>{children}</FontSwitcher>
+              <FontSwitcher locale={"en"}>{children}</FontSwitcher>
             </ThemeProvider>
           </NextIntlClientProvider>
         </NextAuthProviders>

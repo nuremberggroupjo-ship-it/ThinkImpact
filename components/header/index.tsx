@@ -13,10 +13,10 @@ export default async function Header() {
   const trainingData = await getAllTraining();
 
   return (
-    <header className="w-full h-20 flex items-center justify-between px-4 border-b border-b-slate-200 z-50 bg-white">
+    <header className="  w-full h-20 flex items-center justify-between px-4 border-b ">
       <Logo />
       <div className="hidden md:block">
-        {/* نمرر البيانات إلى نافبار */}
+
         <Navbar categories={categories} trainingData={trainingData} />
       </div>
       <div className="hidden md:flex">

@@ -1,26 +1,38 @@
 import MovingSection from "@/components/movingsection";
-import VideoSection from "@/components/video-section"; 
+import VideoSection from "@/components/video-section";
+import ConsultingCards from "@/components/ConsultingCards/ConsultingCards";
+import { getAllcategories } from "@/app/models/db/lib/services/consulting";
+import InteractiveMap from "@/components/mapsection/map-section";
+import Poster from "@/components/poster/poster"
 
 export default async function Home() {
+  const categories = await getAllcategories();
+
   return (
     <main className="relative">
-\
-      <header className="top-0 left-0 w-full h-screen z-0">
-        <section className="mt-20">
+      <header className="w-full h-screen">
+        <div className="mt-20">
           <VideoSection />
-        </section>
+        </div>
       </header>
 
-\
-      <section className="relative z-10 top-[10vh] w-full">
+      <section className="relative z-10 w-full">
         <MovingSection />
       </section>
-\
-      <section className="px-8 py-16">
-        <h1 className="text-2xl font-semibold mb-4">
-          Interactive Arab World Map
-        </h1>
-        {/* لاحقًا: حط مكون الخريطة التفاعلية هنا */}
+
+      <section className="  relative z-10 w-full">
+        <Poster/>
+      </section>
+    <section className="  relative z-10 w-full">
+     <InteractiveMap/>
+    </section>
+    <section className="relative z-10 w-full">
+        <Poster/>
+      </section>
+
+
+      <section className="bg-white dark:bg-[#020618] py-10">
+        <ConsultingCards categories={categories} />
       </section>
     </main>
   );

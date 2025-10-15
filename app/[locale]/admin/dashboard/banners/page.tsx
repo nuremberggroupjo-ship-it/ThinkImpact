@@ -31,9 +31,11 @@ export default async function UsersTable() {
           A list of your Banners.
         </h2>
       </div>
-
-      {/* Table container */}
-      <div className="w-full overflow-x-auto border border-gray-300 rounded-2xl p-2">
+{banners.length === 0 ? (
+        <div className="w-full text-center py-10 text-gray-500 text-lg min-w-[80vw]">
+          No banners found. Please add a new banner.
+        </div>
+      ) : (  <div className="w-full overflow-x-auto border border-gray-300 rounded-2xl p-2">
         <div className="min-w-[80vw]">
           <Table>
             <TableHeader>
@@ -98,7 +100,9 @@ export default async function UsersTable() {
           </Table>
         </div>
       </div>
-
+)}
+      {/* Table container */}
+    
       {/* Add Button under the table */}
       <div className="w-full flex justify-end mt-4">
         <Link

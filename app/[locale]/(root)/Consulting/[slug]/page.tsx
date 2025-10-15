@@ -1,5 +1,5 @@
-import { getCaregoryById, getCaregoryByslug } from "@/app/models/db/lib/services/consulting";
-import { getServiceById } from "@/app/models/db/lib/services/services";
+import { getCaregoryByslug } from "@/app/models/db/lib/services/consulting";
+import { getServiceByCategoryId } from "@/app/models/db/lib/services/services";
 import { notFound } from "next/navigation";
 import FlippingCard from "@/components/flippingcard/flippingcard";
 import CardsWrapper from "@/components/wrappers/card-wrapper";
@@ -15,14 +15,15 @@ export default async function ProductPage({ params }: PageProps) {
   const category = await getCaregoryByslug(id);
   const categoryData = category[0];
   if (!categoryData) notFound();
- console.log("category[0].id:",category[0].id);
- 
-  const services = await getServiceById(category[0].id??"");
-  console.log("services:",services);
-  
+  console.log("category[0].id:", category[0].id);
+
+  const services = await getServiceByCategoryId(category[0].id ?? "");
+  console.log("services:", services);
 
   const categoryName =
-    locale === "ar" ? categoryData.category_name_ar : categoryData.category_name_en;
+    locale === "ar"
+      ? categoryData.category_name_ar
+      : categoryData.category_name_en;
   const categoryDesc =
     locale === "ar" ? categoryData.description_ar : categoryData.description_en;
 
@@ -38,15 +39,16 @@ export default async function ProductPage({ params }: PageProps) {
 
       <CardsWrapper>
         {services.map((service) => {
-          const serviceName = locale === "ar" ? service.name_ar : service.name_en;
+          const serviceName =
+            locale === "ar" ? service.name_ar : service.name_en;
           const serviceDesc =
             locale === "ar" ? service.description_ar : service.description_en;
 
           return (
             <FlippingCard
-              key={service.id}          // المفتاح ضروري
+              key={service.id}
               title={serviceName}
-              description={serviceDesc} // هنا تعطي وصف الخدمة الحقيقي
+              description={serviceDesc}
             />
           );
         })}

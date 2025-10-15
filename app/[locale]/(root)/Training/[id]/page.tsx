@@ -1,9 +1,9 @@
 import { getCourseById } from "@/app/models/db/lib/services/courses";
+import Image from "next/image";
 import { getTrainingById } from "@/app/models/db/lib/services/training";
 import { notFound } from "next/navigation";
-import { Card, CardContent,  CardHeader, CardTitle} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import CardsWrapper from "@/components/wrappers/card-wrapper";
-import Link from "next/link";
 
 interface PageProps {
   params: { locale: string; id: string | string[] };
@@ -48,16 +48,33 @@ export default async function ProductPage({ params }: PageProps) {
             locale === "ar"
               ? course.delivery_method_ar
               : course.delivery_method_en;
+          const image = course.image || "/default-course.jpg";
 
           return (
             <Card
               key={course.id}
-              className="shadow-lg border border-gray-200 rounded-lg p-6 hover:shadow-xl transition-shadow flex flex-col justify-between min-h-[340px]"
+              className={`shadow-xl bg-white border border-gray-200 rounded-xl hover:shadow-2xl transition-shadow min-h-[440px] flex flex-col relative overflow-hidden group ${
+                locale === "ar" ? "text-right" : "text-left"
+              }`}
+              dir={locale === "ar" ? "rtl" : "ltr"}
             >
-              <div>
+              <div className="absolute inset-0 bg-gradient-to-br from-[#125892]/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 z-0" />
+
+              <div className="w-full h-48 relative z-10">
+                <Image
+                  src={image}
+                  alt={title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              <div className="flex flex-col justify-between flex-1 p-6 z-10">
                 <CardHeader className="p-0 mb-4">
-                  <CardTitle className="text-xl font-bold mb-2">{title}</CardTitle>
-                  <CardContent className="text-gray-600 line-clamp-3">
+                  <CardTitle className="text-xl font-bold text-[#125892] mb-2">
+                    {title}
+                  </CardTitle>
+                  <CardContent className="text-gray-600 line-clamp-3 p-0 text-sm">
                     {description}
                   </CardContent>
                 </CardHeader>
@@ -65,7 +82,7 @@ export default async function ProductPage({ params }: PageProps) {
                 <CardContent className="p-0 mt-4 space-y-2 text-sm text-gray-700">
                   {audience?.length > 0 && (
                     <p>
-                      <span className="font-medium text-gray-800">
+                      <span className="font-semibold text-gray-800">
                         {locale === "ar" ? "الفئة المستهدفة" : "Audience"}:
                       </span>{" "}
                       {audience.join(", ")}
@@ -73,7 +90,7 @@ export default async function ProductPage({ params }: PageProps) {
                   )}
                   {delivery?.length > 0 && (
                     <p>
-                      <span className="font-medium text-gray-800">
+                      <span className="font-semibold text-gray-800">
                         {locale === "ar" ? "طريقة التقديم" : "Delivery"}:
                       </span>{" "}
                       {delivery.join(", ")}
@@ -81,22 +98,13 @@ export default async function ProductPage({ params }: PageProps) {
                   )}
                   {duration && (
                     <p>
-                      <span className="font-medium text-gray-800">
+                      <span className="font-semibold text-gray-800">
                         {locale === "ar" ? "المدة" : "Duration"}:
                       </span>{" "}
                       {duration}
                     </p>
                   )}
                 </CardContent>
-              </div>
-
-              <div className="mt-6">
-                <Link
-                  href={`/${locale}/courses/${course.id}`}
-                  className="block text-center w-full bg-[#125892] text-white py-2 rounded hover:bg-blue-700 transition"
-                >
-                  {locale === "ar" ? "اعرف المزيد" : "Learn More"}
-                </Link>
               </div>
             </Card>
           );

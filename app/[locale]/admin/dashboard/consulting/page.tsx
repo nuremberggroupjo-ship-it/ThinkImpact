@@ -13,14 +13,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { SquarePen, Plus, Trash2 } from "lucide-react";
+import { SquarePen, Plus } from "lucide-react";
 import Image from "next/image";
 import { getAllcategories } from "@/app/models/db/lib/services/consulting";
 import DeleteCategoryButton from "@/components/consulting/deleteCategoryForm";
 import { deleteCategory } from "./(fetch)/deleteCategory";
 
-export default async function consultingTable() {
-  const Categories = await getAllcategories();
+export default async function ConsultingTable() {
+  const categories = await getAllcategories();
 
   return (
     <main className="flex flex-col justify-center items-center xl:ml-5 m-2">
@@ -32,76 +32,78 @@ export default async function consultingTable() {
         </h2>
       </div>
 
-      {/* Table container */}
-      <div className="w-full overflow-x-auto border border-gray-300 rounded-2xl p-2">
-        <div className="min-w-[75vw]">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead className="hidden xl:table-cell">
-                  Description
-                </TableHead>
-                <TableHead>Image</TableHead>
-                <TableHead></TableHead>
-                <TableHead></TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {Categories.map((category, i) => (
-                <TableRow key={i}>
-                  <TableCell className="text-xs sm:text-base">
-                    {category.category_name_en}
-                  </TableCell>
-
-                  {/* Description */}
-                  <TableCell className="text-xs sm:text-base hidden xl:table-cell">
-                    {category.description_en?.substring(0, 50)}...
-                  </TableCell>
-
-                  {/* Image */}
-                  <TableCell className="text-xs sm:text-base">
-                    <Image
-                      src={
-                        category.category_logo ??""
-                      }
-                      alt={category.category_name_en}
-                      width={75}
-                      height={75}
-                      className="rounded-full object-cover"
-                    />
-                  </TableCell>
-
-                  {/* Created At */}
-
-                  {/* Edit Icon */}
-                  <TableCell>
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Link
-                            href={`/admin/dashboard/consulting/${category.id}`}
-                          >
-                            <SquarePen className="w-5 h-5 text-[#125892] cursor-pointer hover:text-[#125892]" />
-                          </Link>
-                        </TooltipTrigger>
-                        <TooltipContent side="top" align="center">
-                          <p>Edit</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </TableCell>
-
-                  {/* Delete Icon */}
-                  <TableCell>
-                   <DeleteCategoryButton categoryId={category.id ?? ""} deleteAction={deleteCategory} />
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+      {/* If no categories */}
+      {categories.length === 0 ? (
+        <div className="w-full text-center py-10 text-gray-500 text-lg min-w-[75vw]">
+          No categories found. Please add a new category.
         </div>
-      </div>
+      ) : (
+        /* Table container */
+        <div className="w-full overflow-x-auto border border-gray-300 rounded-2xl p-2">
+          <div className="min-w-[75vw]">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Name</TableHead>
+                  <TableHead className="hidden xl:table-cell">Description</TableHead>
+                  <TableHead>Image</TableHead>
+                  <TableHead></TableHead>
+                  <TableHead></TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {categories.map((category, i) => (
+                  <TableRow key={i}>
+                    <TableCell className="text-xs sm:text-base">
+                      {category.category_name_en}
+                    </TableCell>
+
+                    {/* Description */}
+                    <TableCell className="text-xs sm:text-base hidden xl:table-cell">
+                      {category.description_en?.substring(0, 50)}...
+                    </TableCell>
+
+                    {/* Image */}
+                    <TableCell className="text-xs sm:text-base">
+                      <Image
+                        src={category.category_logo ?? ""}
+                        alt={category.category_name_en}
+                        width={75}
+                        height={75}
+                        className="rounded-full object-cover"
+                      />
+                    </TableCell>
+
+                    {/* Edit Icon */}
+                    <TableCell>
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Link href={`/admin/dashboard/consulting/${category.id}`}>
+                              <SquarePen className="w-5 h-5 text-[#125892] cursor-pointer hover:text-[#0f4473]" />
+                            </Link>
+                          </TooltipTrigger>
+                          <TooltipContent side="top" align="center">
+                            <p>Edit</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </TableCell>
+
+                    {/* Delete Icon */}
+                    <TableCell>
+                      <DeleteCategoryButton
+                        categoryId={category.id ?? ""}
+                        deleteAction={deleteCategory}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </div>
+      )}
 
       {/* Add Button under the table */}
       <div className="w-full flex justify-end mt-4">

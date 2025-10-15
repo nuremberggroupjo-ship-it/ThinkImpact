@@ -14,7 +14,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { SquarePen, Plus } from "lucide-react";
-import DeleteCategoryButton from "@/components/consulting/deleteCategoryForm";
+import DeleteSettingButton from "@/components/settings/deleteSetting";
 import { deleteSetting } from "./(fetch)/deleteSetting";
 import { getSettingsData } from "@/app/models/db/lib/services/settings";
 
@@ -32,7 +32,7 @@ export default async function SettingsTable() {
         </h2>
       </div>
 
-      {/* If no categories */}
+      {/* If no Settings */}
       {settings.length === 0 ? (
         <div className="w-full text-center py-10 text-gray-500 text-lg min-w-[75vw]">
           No Settings found. Please add a new Setting.
@@ -89,8 +89,8 @@ export default async function SettingsTable() {
                           </Tooltip>
                         </TooltipProvider>
 
-                        <DeleteCategoryButton
-                          categoryId={setting.id ?? ""}
+                        <DeleteSettingButton
+                          settingId={setting.id ?? ""}
                           deleteAction={deleteSetting}
                         />
                       </div>

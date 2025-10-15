@@ -10,8 +10,14 @@ export default async function membersTable() {
         <h1 className="text-lg md:text-2xl font-bold">Members</h1>
         <h2 className="text-sm md:text-lg text-gray-600">A list of your Team Members.</h2>
       </div>
-
-      <DragDropClients members={members} />
+{members.length === 0 ? (
+        <div className="w-full text-center py-10 text-gray-500 text-lg min-w-[75vw]">
+          No Members found. Please add a new Member.
+        </div>
+      ) : (
+        <DragDropClients members={members} />
+      )}
+      
     </main>
   );
 }

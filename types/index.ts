@@ -206,6 +206,7 @@ export interface getCourses{
   training_name_ar: string;
   training_description_en: string;
   training_description_ar: string;
+  image:string
 }
 
 
@@ -228,5 +229,15 @@ export type newSetting={
   key_name_ar?:string,
   value_en?:string,
   value_ar?:string,
+  created_at?:Date
+}
+export type newCareer= {
+  id?:string,
+  first_name:string,
+  last_name:string,
+  email:string,
+  city:string,
+  phone_number:string | null,
+  cv:string,
   created_at?:Date
 }

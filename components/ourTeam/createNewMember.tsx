@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/card";
 import React, { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { Checkbox } from "@/components/ui/checkbox"
+import { Label } from "@radix-ui/react-dropdown-menu";
 
 interface Props {
   action: (data: newMember) => Promise<void>;
@@ -24,7 +26,8 @@ export default function AddMemberForm({ action }: Props) {
     position_ar:"",
     description_en:"",
     description_ar:"",
-    image:""
+    image:"",
+    main:false
   });
 
   const [isPending, startTransition] = useTransition();
@@ -189,6 +192,23 @@ export default function AddMemberForm({ action }: Props) {
                 onDelete={handleImageDelete}
               />
             </div>
+            <div className="flex items-center gap-3 mb-6 border border-gray-400 p-4 bg-gray-100 rounded">
+  <Checkbox
+    id="main"
+    name="main"
+    checked={form.main}
+    onCheckedChange={(checked) => {
+      setForm({ ...form, main: checked === true });
+    }}
+    className="shadow-black cursor-pointer"
+  />
+  <Label
+   
+    className="text-sm font-medium text-gray-800 cursor-pointer select-none"
+  >
+    Main Member
+  </Label>
+</div>
 
             <div className="w-full flex justify-center mt-5">
               <div className="flex flex-row gap-3">
