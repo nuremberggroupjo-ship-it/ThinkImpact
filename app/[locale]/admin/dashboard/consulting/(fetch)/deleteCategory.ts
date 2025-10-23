@@ -6,7 +6,6 @@ import { authOptions } from "@/app/models/db/authOptions";
 export async function deleteCategory(categoryId:string) {
   const session = await getServerSession(authOptions);
   const token = session?.user.token;
- console.log("userId: ",categoryId);
  
   const result = await fetch(
     `${process.env.NEXT_PUBLIC_APP_URL}/api/consulting/${categoryId}`,
@@ -18,7 +17,6 @@ export async function deleteCategory(categoryId:string) {
       },
     }
   );
-console.log("result.ok: ",result.ok);
 
   if (!result.ok) throw new Error("Failed to delete category");
 

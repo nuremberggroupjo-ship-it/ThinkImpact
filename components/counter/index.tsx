@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useLocale } from "next-intl";
+import { newSetting } from "@/types";
 
 type Stat = {
   labelEn: string;
@@ -10,16 +11,14 @@ type Stat = {
   suffix?: string;
 };
 
-const stats: Stat[] = [
-  { labelEn: "Clients", labelAr: "عملاء", count: 120, suffix: "+" },
-  { labelEn: "Projects", labelAr: "مشاريع", count: 75, suffix: "+" },
-  { labelEn: "Years of Experience", labelAr: "سنوات الخبرة", count: 10, suffix: "+" },
-];
-
 type StatCardProps = {
   label: string;
   count: number;
   suffix?: string;
+};
+
+type DataProp = {
+  data: newSetting[]; 
 };
 
 const StatCard = ({ label, count, suffix = "" }: StatCardProps) => {
@@ -57,16 +56,29 @@ const StatCard = ({ label, count, suffix = "" }: StatCardProps) => {
   );
 };
 
-export const Counter = () => {
+export const Counter = ( {data}:DataProp) => {
   const locale = useLocale();
   const isArabic = locale === "ar";
+   
+  const numberOfClients= data.find((ele,i)=>{
+    return ele.key_name_en=== "number_of_clients"
+  })
+  const numberOfProjects= data.find((ele,i)=>{
+    return ele.key_name_en==="number_of_projects"
+  })
+ 
+  const stats: Stat[] = [
+  { labelEn: "Clients", labelAr: "عملاء", count: Number(numberOfClients?.value_en) , suffix: "+" },
+  { labelEn: "Projects", labelAr: "مشاريع", count: Number(numberOfProjects?.value_en) , suffix: "+" },
+  { labelEn: "Years of Experience", labelAr: "سنوات الخبرة", count: 10, suffix: "+" },
+];
 
   return (
     <section
       dir={isArabic ? "rtl" : "ltr"}
       className="w-full max-w-7xl mx-auto py-20 px-6 "
     >
-      <h2 className="text-3xl font-bold text-center text-[#125892] mb-12 dark:text-white" >
+      <h2 className="text-4xl font-bold text-center text-[#125892] mb-12 " >
         {isArabic ? "أرقامنا" : "Our Numbers"}
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12      ">

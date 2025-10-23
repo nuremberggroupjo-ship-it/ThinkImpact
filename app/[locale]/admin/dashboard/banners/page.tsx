@@ -45,7 +45,6 @@ export default async function UsersTable() {
                 <TableHead>Image</TableHead>
                 <TableHead>Created At</TableHead>
                 <TableHead></TableHead>
-                <TableHead></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -75,25 +74,31 @@ export default async function UsersTable() {
                   </TableCell>
 
                   {/* Edit Icon */}
-                  <TableCell>
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Link href={`/admin/dashboard/banners/${banner.id}`}>
-                            <SquarePen className="w-5 h-5 text-[#125892] cursor-pointer hover:text-[#125892]" />
-                          </Link>
-                        </TooltipTrigger>
-                        <TooltipContent side="top" align="center">
-                          <p>Edit</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </TableCell>
+                  {/* Edit & Delete Icons in one cell */}
+<TableCell>
+  <div className="flex items-center gap-[5px]">
+    {/* Edit Icon */}
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Link href={`/admin/dashboard/banners/${banner.id}`}>
+            <SquarePen className="w-5 h-5 text-[#125892] cursor-pointer hover:text-[#125892]" />
+          </Link>
+        </TooltipTrigger>
+        <TooltipContent side="top" align="center">
+          <p>Edit</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
 
-                  {/* Delete Icon */}
-                  <TableCell>
-                    <DeleteBannerButton bannerId={banner.id ?? ""} deleteAction={deleteBanner} />
-                  </TableCell>
+    {/* Delete Icon */}
+    <DeleteBannerButton
+      bannerId={banner.id ?? ""}
+      deleteAction={deleteBanner}
+    />
+  </div>
+</TableCell>
+
                 </TableRow>
               ))}
             </TableBody>

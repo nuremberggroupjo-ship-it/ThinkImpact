@@ -60,13 +60,13 @@ export default function ConsultingCards({ categories }: ConsultingCardsProps) {
         return (
           <Card
             key={cat.id}
-            className={`shadow-xl bg-white border border-gray-200 rounded-xl p-6 hover:shadow-2xl transition-shadow min-h-[360px] flex flex-col relative overflow-hidden group ${
+            className={`shadow-xl bg-white border dark:bg-[#0f4473]   rounded-xl p-6 hover:shadow-2xl transition-shadow min-h-[360px] flex flex-col relative overflow-hidden group ${
               isArabic ? "text-right" : "text-left"
             }`}
             dir={isArabic ? "rtl" : "ltr"}
           >
             {/* Background Gradient Overlay on Hover */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#125892]/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 z-0" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#125892]/10 to-transparent opacity-0  group-hover:opacity-100 transition duration-500 z-0 " />
 
             {/* Icon */}
             <div className="mb-4 z-10">
@@ -74,13 +74,13 @@ export default function ConsultingCards({ categories }: ConsultingCardsProps) {
             </div>
 
             <CardHeader className="z-10">
-              <CardTitle className="text-2xl font-bold text-[#125892]">
+              <CardTitle className="text-2xl font-bold text-[#125892] dark:text-white dark:font-semibold">
                 {title}
               </CardTitle>
             </CardHeader>
 
             <CardContent className="z-10">
-              <p className="text-gray-700 leading-relaxed text-sm">
+              <p className="text-gray-700 leading-relaxed text-sm dark:text-white dark:font-semibold">
                 {truncatedDesc}
               </p>
             </CardContent>

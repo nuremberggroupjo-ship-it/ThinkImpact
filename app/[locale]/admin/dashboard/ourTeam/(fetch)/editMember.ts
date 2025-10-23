@@ -8,9 +8,7 @@ export async function editMember(data: newMember) {
   
 const session = await getServerSession(authOptions);
   const token = session?.user.token;
-  console.log("data: ",data);
   
-  console.log("data.id: ",data.id);
   
   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ourTeam/${data.id}`, {
     method: "PUT",

@@ -241,3 +241,9 @@ export type newCareer= {
   cv:string,
   created_at?:Date
 }
+
+export type changePassword = {
+  oldPassword: string;
+  password: string;
+  confirmPassword: string;
+};

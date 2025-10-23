@@ -46,7 +46,6 @@ export const GET = async () => {
       { status: 200 }
     );
   } catch (error) {
-    console.log(error);
     
     return NextResponse.json(
       { data: error, message: "Error in getting The Courses" },

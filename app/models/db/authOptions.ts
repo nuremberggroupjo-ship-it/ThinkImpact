@@ -56,7 +56,6 @@ export const authOptions: NextAuthOptions = {
         password: { label: "password", type: "password" },
       },
       async authorize(credentials) {
-        console.log("user55");
         const { email, password } = credentials!;
         if (!email || !password) return null;
         const result = await login({ email, password });
@@ -89,7 +88,6 @@ export const authOptions: NextAuthOptions = {
             token.token=user.token
            
         }
-        console.log("token: ",token);
         return token
     },
 
@@ -100,7 +98,6 @@ export const authOptions: NextAuthOptions = {
     session.user.role=token.role
     session.user.token=token.token
    }
-   console.log("session: ",session);
    return session
     },
     

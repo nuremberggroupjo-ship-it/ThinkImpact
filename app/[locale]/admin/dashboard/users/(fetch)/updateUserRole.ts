@@ -8,7 +8,6 @@ export async function updateUserRole(formData: FormData) {
   const token = session?.user.token;
   const userId = formData.get("userId") as string;
   const role = formData.get("newRole") as string;
-  console.log("token: ",token);
   
   const result = await fetch(
     `${process.env.NEXT_PUBLIC_APP_URL}/api/users/editUser/${userId}`,

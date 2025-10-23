@@ -112,9 +112,6 @@ export default function FileUploader({
             setIsUploading(false);
             const item = Array.isArray(res) ? res[0] : res;
             const { url: uploadedUrl, name: uploadedFileName } = extractUrlAndName(item);
-            console.log("name: ",uploadedFileName);
-                        console.log("url: ",uploadedUrl);
-
             
             if (uploadedUrl) {
               setFileUrl(uploadedUrl);
@@ -155,7 +152,7 @@ export default function FileUploader({
               }
               return (
                 <div className="flex flex-col items-center justify-center">
-                  <div className="text-sm font-semibold">
+                  <div className="text-sm font-semibold dark:text-gray-500">
                     {isDragActive ? (isArabic ? "اسحب الملف هنا" : "Drop your file here") : isArabic ? "اضغط أو اسحب ملف PDF هنا" : "Click or drop a PDF file here"}
                   </div>
                   <div className="text-xs text-gray-400 mt-1">{isArabic ? "PDF فقط • الحد الأقصى 8 ميغابايت" : "PDF only • Max 8 MB"}</div>

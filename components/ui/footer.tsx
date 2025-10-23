@@ -1,10 +1,11 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import Image from 'next/image';
-import Logo from '@/public/images/whitelogo.png';
-import type { newCategory, newTraining } from '@/types';
-
+import Link from "next/link";
+import Image from "next/image";
+import Logo from "@/public/images/whitelogo.png";
+import type { newCategory, newTraining } from "@/types";
+import { Mail, Phone } from "lucide-react";
+import { SiFacebook, SiLinkedin, SiYoutube, SiInstagram } from "react-icons/si";
 type Props = {
   categories: newCategory[];
   trainingData: newTraining[];
@@ -12,12 +13,23 @@ type Props = {
 };
 
 export default function Footer({ categories, trainingData, locale }: Props) {
-  const isArabic = locale === 'ar';
+  const isArabic = locale === "ar";
+
+  const contactEmail =
+    process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@example.com";
+  const contactPhone =
+    process.env.NEXT_PUBLIC_CONTACT_PHONE || "+962-0000-0000";
+  const facebookUrl = process.env.NEXT_PUBLIC_FACEBOOK_URL || "#";
+  const linkedinUrl = process.env.NEXT_PUBLIC_LINKEDIN_URL || "#";
+  const twitterUrl = process.env.NEXT_PUBLIC_TWITTER_URL || "#";
+  const youtubeUrl = process.env.NEXT_PUBLIC_YOUTUBE_URL || "#";
+  const instagramUrl = process.env.NEXT_PUBLIC_INSTAGRAM_URL || "#";
+  const nurembergUrl = process.env.NEXT_PUBLIC_NUREMBERG_URL || "#";
 
   return (
     <div
-      dir={isArabic ? 'rtl' : 'ltr'}
-      className="relative mt-16 bg-[#125892] text-white z-40" 
+      dir={isArabic ? "rtl" : "ltr"}
+      className="relative mt-16 bg-[#125892] text-white z-40"
     >
       <svg
         className="absolute top-0 w-full h-6 -mt-5 sm:-mt-10 sm:h-16 text-[#125892]"
@@ -42,13 +54,13 @@ export default function Footer({ categories, trainingData, locale }: Props) {
             <div className="mt-4 lg:max-w-sm">
               <p className="text-sm">
                 {isArabic
-                  ? 'نكشف الوضوح وسط التعقيد — ونقدّم رؤى موثوقة وحلولًا مخصصة لتمهيد طريقك نحو المستقبل.'
-                  : 'We uncover clarity within complexity—delivering trusted insights and tailored solutions to guide your path forward.'}
+                  ? "نكشف الوضوح وسط التعقيد — ونقدّم رؤى موثوقة وحلولًا مخصصة لتمهيد طريقك نحو المستقبل."
+                  : "We uncover clarity within complexity—delivering trusted insights and tailored solutions to guide your path forward."}
               </p>
               <p className="mt-4 text-sm">
                 {isArabic
-                  ? 'رؤيتك وخبرتنا — معًا نصنع الأثر.'
-                  : 'Your vision, our expertise — together, we create impact.'}
+                  ? "رؤيتك وخبرتنا — معًا نصنع الأثر."
+                  : "Your vision, our expertise — together, we create impact."}
               </p>
             </div>
           </div>
@@ -56,7 +68,7 @@ export default function Footer({ categories, trainingData, locale }: Props) {
           <div className="grid grid-cols-2 gap-5 row-gap-8 lg:col-span-4 md:grid-cols-4">
             <div>
               <p className="font-semibold tracking-wide text-white">
-                {isArabic ? 'الاستشارات' : 'Consulting'}
+                {isArabic ? "الاستشارات" : "Consulting"}
               </p>
               <ul className="mt-2 space-y-2">
                 {(categories || []).map((item) => (
@@ -74,7 +86,7 @@ export default function Footer({ categories, trainingData, locale }: Props) {
 
             <div>
               <p className="font-semibold tracking-wide text-white">
-                {isArabic ? 'التدريب' : 'Training'}
+                {isArabic ? "التدريب" : "Training"}
               </p>
               <ul className="mt-2 space-y-2">
                 {(trainingData || []).map((item) => (
@@ -92,17 +104,23 @@ export default function Footer({ categories, trainingData, locale }: Props) {
 
             <div>
               <p className="font-semibold tracking-wide text-white">
-                {isArabic ? 'روابط مهمة' : 'Quick Links'}
+                {isArabic ? "روابط مهمة" : "Quick Links"}
               </p>
               <ul className="mt-2 space-y-2">
                 <li>
-                  <Link href="/about" className="transition-colors duration-300 text-white hover:text-gray-300">
-                    {isArabic ? 'من نحن' : 'About'}
+                  <Link
+                    href="/about"
+                    className="transition-colors duration-300 text-white hover:text-gray-300"
+                  >
+                    {isArabic ? "من نحن" : "About"}
                   </Link>
                 </li>
                 <li>
-                  <Link href="/ourTeam" className="transition-colors duration-300 text-white hover:text-gray-300">
-                    {isArabic ? 'فريق العمل' : 'Our Team'}
+                  <Link
+                    href="/ourTeam"
+                    className="transition-colors duration-300 text-white hover:text-gray-300"
+                  >
+                    {isArabic ? "فريق العمل" : "Our Team"}
                   </Link>
                 </li>
               </ul>
@@ -110,17 +128,64 @@ export default function Footer({ categories, trainingData, locale }: Props) {
 
             <div>
               <p className="font-semibold tracking-wide text-white">
-                {isArabic ? 'خدمات أخرى' : 'Other Services'}
+                {isArabic ? "تواصل معنا" : "Contact Us"}
               </p>
-              <ul className="mt-2 space-y-2">
-                <li>
-                  <Link href="/blog" className="transition-colors duration-300 text-white hover:text-gray-300">
-                    {isArabic ? 'المدونة' : 'Blog'}
-                  </Link>
+              <ul className="mt-3 space-y-3 text-sm">
+                <li className="flex items-center space-x-2 rtl:space-x-reverse">
+                  <Mail size={20} className="text-white flex-shrink-0" />
+                  <a
+                    href={`mailto:${contactEmail}`}
+                    className="hover:text-gray-300 transition-colors text-sm"
+                  >
+                    {contactEmail}
+                  </a>
                 </li>
-                <li>
-                  <Link href="/contact" className="transition-colors duration-300 text-white hover:text-gray-300">
-                    {isArabic ? 'تواصل معنا' : 'Contact'}
+
+                <li className="flex items-center gap-2">
+                  <Phone size={20} />
+                  <a
+                    href={`tel:${contactPhone}`}
+                    className="hover:text-gray-300 transition-colors"
+                  >
+                    {contactPhone}
+                  </a>
+                </li>
+                <li className="flex items-center gap-3 mt-3">
+                  <Link
+                    href={facebookUrl}
+                    target="_blank"
+                    className="hover:text-gray-300 transition-colors"
+                  >
+                    <SiFacebook size={27} />
+                  </Link>
+                  <Link
+                    href={instagramUrl}
+                    target="_blank"
+                    className="hover:text-gray-300 transition-colors"
+                  >
+                    <SiInstagram size={27} />
+                  </Link>
+                  <Link
+                    href={linkedinUrl}
+                    target="_blank"
+                    className="hover:text-gray-300 transition-colors"
+                  >
+                    <SiLinkedin size={27} />
+                  </Link>
+
+                  <Link
+                    href={twitterUrl}
+                    target="_blank"
+                    className="hover:text-gray-300 transition-colors"
+                  >
+                    <span className="text-white text-2xl">X</span>
+                  </Link>
+                  <Link
+                    href={youtubeUrl}
+                    target="_blank"
+                    className="hover:text-gray-300 transition-colors"
+                  >
+                    <SiYoutube size={27} />
                   </Link>
                 </li>
               </ul>
@@ -128,31 +193,39 @@ export default function Footer({ categories, trainingData, locale }: Props) {
           </div>
         </div>
 
-        <div className="flex flex-col justify-between pt-5 pb-10 border-t border-white/20 sm:flex-row">
-          <p className="text-sm text-white">
-            {isArabic
-              ? '© حقوق النشر 2025 لوريم إنك. جميع الحقوق محفوظة.'
-              : '© Copyright 2025 Lorem Inc. All rights reserved.'}
-          </p>
-          <div className="flex items-center mt-4 space-x-4 sm:mt-0">
-            {[
-              'M24,4.6c-0.9,0.4-1.8,...',
-              'M19.999,3h-10C6.14,3,...',
-              'M22,0H2C0.895,0,0,0.8...'
-            ].map((d, i) => (
-              <Link
-                key={i}
-                href="/"
-                className="transition-colors duration-300 text-white hover:text-gray-300"
-              >
-                <svg viewBox="0 0 24 24" fill="currentColor" className="h-5">
-                  <path d={d} />
-                </svg>
-              </Link>
-            ))}
+       
+          <div className=" text-center  pt-5 pb-10 border-t border-white/20 sm:flex-row ">
+            <p className="text-sm text-white">
+              {isArabic ? (
+                <>
+                  © 2025 Think Impact. جميع الحقوق محفوظة. تم الإنشاء بواسطة{" "}
+                  <a
+                    href={nurembergUrl}
+                    target="_blank"
+                    className="underline hover:text-gray-300"
+                  >
+                    Nuremberg Group
+                  </a>
+                  .
+                </>
+              ) : (
+                <>
+                  © 2025 Think Impact. All rights reserved. Made by{" "}
+                  <a
+                    href={nurembergUrl}
+                    target="_blank"
+                    className="underline hover:text-gray-300"
+                  >
+                    Nuremberg Group
+                  </a>
+                  .
+                </>
+              )}
+            </p>
           </div>
+
+         
         </div>
-      </div>
     </div>
   );
 }

@@ -70,7 +70,7 @@ export default function AddBannerForm({ action }: Props) {
 
   return (
     <main className="ml-3 xl:ml-7 mb-7">
-      <div className="flex flex-col justify-start items-start border-b border-gray-500 w-[95vw] mb-7">
+      <div className="flex flex-col justify-start items-start border-b border-gray-500 w-[70vw] mb-7">
         <h1 className="text-lg md:text-2xl font-bold">Add New Banner</h1>
       </div>
 

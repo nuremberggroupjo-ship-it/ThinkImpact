@@ -12,17 +12,20 @@ type Client = {
   name: string;
   logo: string;
   created_at?: Date;
+
 };
 
 type Props = {
   clients: Client[];
+    locale:string
 };
 
-export default function ClientsCarousel({ clients }: Props) {
+export default function ClientsCarousel({ clients,locale }: Props) {
+  const isArabic= locale==="ar"
   return (
     <section className="flex flex-col justify-center items-center mt-20 w-full">
       <h1 className="text-center text-3xl md:text-5xl sm:text-4xl font-bold text-[#125892] mb-8">
-        OUR CLIENTS
+         {isArabic ? "عملاؤنا ":"OUR CLIENTS"} 
       </h1>
 
       <div className="w-full max-w-5xl cursor-pointer">

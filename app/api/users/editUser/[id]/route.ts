@@ -44,8 +44,6 @@ export const PUT = async (
       }
     }
   } catch (error) {
-    console.log("error: ",error);
-    
     return NextResponse.json(
       { data: error, message: "Error in updating the user role" },
       { status: 500 }

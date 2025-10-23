@@ -75,7 +75,6 @@ export default function ImageUploader({
         onUploadError={() => {
           setIsUploading(false);
           setErrorMessage("Upload failed. Please try again or use a smaller image (max 2 MB).");
-          // ❌ no console.log or technical errors shown
         }}
         appearance={{
           container:

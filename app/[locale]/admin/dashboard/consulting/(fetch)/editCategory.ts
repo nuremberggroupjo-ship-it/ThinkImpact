@@ -8,7 +8,6 @@ import { revalidatePath } from "next/cache";
 export async function editCategory (data:newCategory){
     const session= await getServerSession(authOptions)
     const token= session?.user.token
-console.log("data.id:",data.id);
 
    const result= await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/consulting/${data.id}`,
         {method:"PUT",

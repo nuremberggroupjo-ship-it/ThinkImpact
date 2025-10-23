@@ -59,7 +59,6 @@ export const GET = async (request: Request,params:{
 }) => {
   try {
     const authHeader = request.headers.get("authorization")?.split(" ")[1];
-    console.log("authHeader: ", authHeader);
     if (!authHeader) {
       return NextResponse.json({ message: "Unauthenticated" }, { status: 501 });
     } else {
@@ -67,7 +66,6 @@ export const GET = async (request: Request,params:{
         authHeader,
         process.env.NEXTAUTH_SECRET as Secret
       ) as tokenPayload;
-      console.log("payload: ", payload.role);
       if (payload.role !== "admin") {
         return NextResponse.json({ message: "Unauthorized" }, { status: 501 });
       } else {

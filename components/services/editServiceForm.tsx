@@ -26,10 +26,7 @@ interface prop {
 }
 
 function editServiceForm({ service, action, categories }: prop) {
-  console.log("service: ", service);
 
-  console.log("categories: ", categories);
-  // console.log("service.categoryId: ", service.category_id);
 
   const router = useRouter();
   const [form, setForm] = useState<editService>({
@@ -68,8 +65,6 @@ function editServiceForm({ service, action, categories }: prop) {
   const handleImageDelete = () => {
     setForm({ ...form, image: "" });
   };
-
-  console.log("wdawd: ", categories[0].id);
 
   const handleFormSubmit = () => {
     startTransition(async () => {

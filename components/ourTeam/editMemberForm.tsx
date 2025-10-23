@@ -48,7 +48,6 @@ export default function EditMemberForm({ member, action }: Props) {
   };
 
   const handleUploadError = (error: Error) => {
-    console.error(error);
     setToast({ message: `Upload failed: ${error.message}`, type: "error" });
     setTimeout(() => setToast(null), 3000);
   };
@@ -68,7 +67,6 @@ export default function EditMemberForm({ member, action }: Props) {
           router.replace("/admin/dashboard/ourTeam");
         }, 1500);
       } catch (error) {
-        console.error(error);
         setToast({ message: "Failed to update Member.", type: "error" });
         setTimeout(() => setToast(null), 3000);
       }

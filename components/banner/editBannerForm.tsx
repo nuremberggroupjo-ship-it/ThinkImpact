@@ -58,11 +58,10 @@ export default function EditBannerForm({ banner, action }: Props) {
         await action({ ...form, bannerId: banner.id });
         setToast({ message: "Banner updated successfully!", type: "success" });
 
-        // Redirect immediately after success
         setTimeout(() => {
           setToast(null);
           router.replace("/admin/dashboard/banners");
-        }, 1500); // small delay for toast
+        }, 1500); 
       } catch (error) {
         console.error(error);
         setToast({ message: "Failed to update banner.", type: "error" });

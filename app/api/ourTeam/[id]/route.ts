@@ -21,12 +21,10 @@ export const PUT = async (
       if (payload.role !== "admin") {
         return NextResponse.json({ message: "Unauthorized" }, { status: 501 });
       } else {
-        console.log("payload.role: ", payload.role);
 
         const { id } = await params.params;
         const body = await request.json();
         const result = await editMember(id, body);
-        console.log("result: ", result);
         if (result === null) {
           return NextResponse.json(
             {
@@ -47,7 +45,6 @@ export const PUT = async (
       }
     }
   } catch (error) {
-    console.log("error: ", error);
     return NextResponse.json(
       { data: error, message: "Error in updating The member" },
       { status: 500 }
@@ -78,6 +75,7 @@ export const DELETE = async (
         const result = await deleteMember(id);
 
         if (result === null) {
+          
           return NextResponse.json(
             {
               data: result,

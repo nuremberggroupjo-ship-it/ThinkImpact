@@ -4,15 +4,31 @@ import React from "react";
 import Image from "next/image";
 import { useLocale } from "next-intl";
 import postImage from "@/public/images/molto2.svg"
+import { newSetting } from "@/types";
 
-export default function PosterSection() {
+type DataProp = {
+  data: newSetting[];
+};
+export default function PosterSection(data: DataProp ) {
   const locale = useLocale();
   const isArabic = locale === "ar";
+  
+  const imageInPartOne= data.data.find((ele,i)=>{
+    return ele.key_name_en==="part_one_image"
+  })
 
-  const heading = isArabic ? "أهلاً بكم في منصتنا" : "Welcome to Our Platform";
+  const headerInPartOne= data.data.find((ele,i)=>{
+    return ele.key_name_en==="part_one_header"
+  })
+
+  const descriptionInPartOne= data.data.find((ele,i)=>{
+    return ele.key_name_en==="part_one_description"
+  })
+
+  const heading = isArabic ? headerInPartOne?.value_ar : headerInPartOne?.value_en;
   const description = isArabic
-    ? "نحن نقدم أفضل الحلول لتطوير أعمالكم الرقمية."
-    : "We provide the best solutions to grow your digital business.";
+    ? descriptionInPartOne?.value_ar
+    : descriptionInPartOne?.value_en;
 
   return (
     <section
@@ -34,7 +50,7 @@ export default function PosterSection() {
         }`}
       >
         <Image
-          src={postImage}
+          src={imageInPartOne?.value_en??""}
           alt="Hero Poster"
           width={400}
           height={300}

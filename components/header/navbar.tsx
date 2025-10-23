@@ -14,6 +14,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { useSession, signOut } from "next-auth/react";
 
 type Props = {
   categories: newCategory[];
@@ -21,6 +22,10 @@ type Props = {
 };
 
 export default function Navbar({ categories, trainingData }: Props) {
+  const session = useSession();
+  const isLoggedIn = !!session.data?.user;
+  const isAdmin = session.data?.user.role === "admin";
+
   const t = useTranslations("Navbar");
   const locale = useLocale();
   const isArabic = locale === "ar";
@@ -56,6 +61,7 @@ export default function Navbar({ categories, trainingData }: Props) {
         </NavigationMenuLink>
       )),
     },
+
     {
       type: "link",
       href: "/about",
@@ -68,7 +74,42 @@ export default function Navbar({ categories, trainingData }: Props) {
       label: t("ourTeam"),
       key: "ourTeam",
     },
+    {
+      type: "link",
+      href: "/newApplication",
+      label: t("newApplication"),
+      key: "newApplication",
+    },
   ];
+
+  if (isLoggedIn) {
+    menuItems.push({
+      type: "dropdown",
+      label: t("myAccount"),
+      key: "myAccount",
+      content: [
+        isAdmin && (
+          <NavigationMenuLink asChild key="dashboard">
+            <Link href="/admin/dashboard">{t("dashboard")}</Link>
+          </NavigationMenuLink>
+        ),
+        <NavigationMenuLink asChild key="changePassword">
+          <Link href="/change-password">{t("changePassword")}</Link>
+        </NavigationMenuLink>,
+        <NavigationMenuLink asChild key="logout">
+          <button
+            onClick={() => signOut()}
+            className={`w-full text-left px-2 py-1  cursor-pointer ${
+              isArabic ? "text-right" : "text-left"
+            }`}
+          >
+            {" "}
+            {t("logout")}
+          </button>
+        </NavigationMenuLink>,
+      ].filter(Boolean),
+    });
+  }
 
   const finalMenu = isArabic ? [...menuItems].reverse() : menuItems;
 
@@ -84,7 +125,10 @@ export default function Navbar({ categories, trainingData }: Props) {
             return (
               <NavigationMenuItem key={item.key}>
                 <NavigationMenuLink asChild>
-                  <Link className={navigationMenuTriggerStyle()} href={item.href ?? "/"}>
+                  <Link
+                    className={navigationMenuTriggerStyle()}
+                    href={item.href ?? "/"}
+                  >
                     {item.label}
                   </Link>
                 </NavigationMenuLink>

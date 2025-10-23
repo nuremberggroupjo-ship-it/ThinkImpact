@@ -6,7 +6,6 @@ import { authOptions } from "@/app/models/db/authOptions";
 export async function deleteMember(memberId:string) {
   const session = await getServerSession(authOptions);
   const token = session?.user.token;
- console.log("memberId: ",memberId);
  
   const result = await fetch(
     `${process.env.NEXT_PUBLIC_APP_URL}/api/ourTeam/${memberId}`,
@@ -18,7 +17,6 @@ export async function deleteMember(memberId:string) {
       },
     }
   );
-console.log("result.ok: ",result.ok);
 
   if (!result.ok) throw new Error("Failed to delete Member");
 

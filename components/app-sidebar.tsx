@@ -52,7 +52,9 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="flex items-center gap-2 text-[#125892] text-lg mb-3   p-2 rounded ">
+          <SidebarGroupLabel className="flex items-center gap-2 text-[#125892] text-lg mb-3 cursor-pointer   p-2 rounded " onClick={()=>{
+            router.replace("/")
+          }}>
             <Image src={logoDash} alt="logo" className="w-8 h-8" />
             <span>Think Impact</span>
           </SidebarGroupLabel>

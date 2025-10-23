@@ -42,19 +42,41 @@ export function Banner({ banners, locale }: Props) {
           return (
             <CarouselItem key={item.id} className="relative">
               <Card className="border-0 shadow-none p-0">
-                <CardContent className="aspect-[20/8] p-0 m-0 relative  overflow-hidden">
+                <CardContent className="aspect-[20/8] p-0 m-0 relative overflow-hidden">
+                  {/* Background image */}
                   <Image
                     src={item.image ?? "/default-image.png"}
                     alt={title}
                     fill
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-[#125892]/95 z-10" />
-                  <div className="absolute inset-0 bg-gradient-to-l from-transparent to-black z-9" />
-                  <div className="absolute inset-0 z-20 flex flex-col justify-center items-start p-6 text-white text-left ml-[5vw]">
-                    <div className="w-[30%] flex flex-col items-center">
-                      <h2 className="text-4xl font-bold">{title}</h2>
-                      <p className="text-xl mt-6">{description}</p>
+
+                  {/* Gradient overlay that follows text side */}
+                  <div
+                    className={`absolute inset-0 z-10 ${
+                      isArabic
+                        ? "bg-gradient-to-l from-[#125892]/90 via-[#125892]/40 to-transparent"
+                        : "bg-gradient-to-r from-[#125892]/90 via-[#125892]/40 to-transparent"
+                    }`}
+                  />
+
+                  {/* Text content (anchored to the correct side) */}
+                  <div
+                    dir={isArabic ? "rtl" : "ltr"}
+                    className={`absolute top-0 bottom-0 z-20 flex flex-col justify-center text-white transition-all duration-300 
+                      ${isArabic ? "right-[6vw] items-start text-right" : "left-[6vw] items-start text-left"}`}
+                  >
+                    <div className="w-[90%] sm:w-[70%] md:w-[50%] lg:w-[45%]">
+                      {title && (
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 drop-shadow-md">
+                          {title}
+                        </h2>
+                      )}
+                      {description && (
+                        <p className="text-base sm:text-lg md:text-xl leading-relaxed drop-shadow-md">
+                          {description}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </CardContent>

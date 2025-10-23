@@ -19,23 +19,21 @@ function page() {
     e.preventDefault();
      setsuccess(true)
     axios
-      .post("http://localhost:3000/api/auth/forgot-password", {
+      .post(`${process.env.NEXT_PUBLIC_APP_URL}/api/auth/forgot-password`, {
         email: form.email,
       })
       .then((result) => {
         setLoading(false)
-        console.log(result);
        
       })
       .catch((error) => {
-        console.log("error");
         
       });
   };
   return (
     <main className="flex flex-row gap-5 justify-center items-center mt-16">
   <form
-    className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg shadow-gray-300/50 space-y-6"
+    className="w-full max-w-md bg-white dark:bg-gray-300 p-8 rounded-2xl shadow-sm shadow-gray-200/50 space-y-6"
     onSubmit={onSubmit}
   >
     {/* Header */}
@@ -88,7 +86,7 @@ function page() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full py-3 bg-[#00ADEE] text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-[#00ADEE] transition"
+        className="w-full py-3 bg-[#00ADEE] text-white font-medium cursor-pointer rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-[#00ADEE] transition"
       >
         {loading ? "Sending..." : "Send Reset Link"}
       </button>

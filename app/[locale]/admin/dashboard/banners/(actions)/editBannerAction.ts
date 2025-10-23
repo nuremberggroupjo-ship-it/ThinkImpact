@@ -23,6 +23,8 @@ const session = await getServerSession(authOptions);
     body: JSON.stringify(body),
   });
 
+  
+  
   if (!res.ok) throw new Error("Failed to update banner");
 
   revalidatePath(`/dashboard/banners`);

@@ -161,7 +161,6 @@ function Info({ label, value }: { label: string; value?: string | null }) {
 function getFileNameFromUrl(url: string) {
   try {
     const decoded = decodeURIComponent(url);
-    console.log("decoded: ",decoded);
     
     const lastSegment = decoded.split("/").pop() ?? "";
     return lastSegment.split("?")[0]; // Remove any query string

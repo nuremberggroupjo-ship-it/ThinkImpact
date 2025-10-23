@@ -21,7 +21,6 @@ export async function createService(data: newService) {
       body: JSON.stringify(data)
     }
   );
-console.log("result.ok: ",result.ok);
 
   if (!result.ok) throw new Error("Failed to create Service");
 

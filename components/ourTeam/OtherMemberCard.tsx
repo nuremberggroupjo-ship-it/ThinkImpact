@@ -12,21 +12,36 @@ export default function OtherMemberCard({ member, locale }: Props) {
 
   const name = isArabic ? member.name_ar : member.name_en;
   const position = isArabic ? member.position_ar : member.position_en;
-  const description = isArabic ? member.description_ar || "" : member.description_en || "";
+  const description = isArabic
+    ? member.description_ar || ""
+    : member.description_en || "";
 
-  const shortDesc = description.length > 75 ? description.slice(0, 75) + "..." : description;
-  const hasLongDesc = description.length > 75;
+  const shortDesc =
+    description.length > 150 ? description.slice(0, 150) + "..." : description;
+  const hasLongDesc = description.length > 150;
 
   return (
-    <div className="w-[200px] min-h-[60px] flex-shrink-0">
-      <div className="flex flex-col items-center text-center p-6 rounded-lg shadow-md bg-white border border-gray-300 transform transition-transform duration-300 hover:scale-105 hover:shadow-lg cursor-pointer">
-        <div className="w-[100px] h-[100px] rounded-full overflow-hidden shadow-sm mb-4 border-2 border-[#125892]">
-          <img src={member.image} alt={name} className="w-full h-full object-cover" />
-        </div>
+    <div
+      className="flex flex-col items-center text-center bg-gray-100 border border-gray-200 rounded-2xl 
+                 shadow-sm p-5 w-full  sm:w-[280px] md:w-[300px] lg:w-[320px] 
+                 transition-all duration-300 hover:shadow-lg hover:-translate-y-2 cursor-pointer"
+    >
+      {/* Profile Image */}
+      <div className="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden shadow-md border-2 border-[#125892] mb-4">
+        <img
+          src={member.image}
+          alt={name}
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-        <p className="text-md font-semibold text-[#125892] mb-1">{name}</p>
-        <p className="text-gray-600 mb-3">{position}</p>
-        <p className="text-gray-500 text-xs leading-snug">
+      {/* Text Content */}
+      <div className="flex flex-col items-center px-2">
+        <p className="text-lg md:text-xl font-semibold text-[#125892] mb-1">
+          {name}
+        </p>
+        <p className="text-gray-600 text-sm md:text-base mb-3">{position}</p>
+        <p className="text-gray-500 text-sm md:text-[15px] leading-snug max-w-xs">
           {shortDesc}{" "}
           {hasLongDesc && <MemberDialog member={member} locale={locale} />}
         </p>

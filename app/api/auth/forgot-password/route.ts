@@ -4,9 +4,7 @@ import { Resend } from "resend";
 
 export const POST = async (request: Request) => {
   try {
-    const {email} = await request.json();
-    console.log("body: ",email);
-    
+    const {email} = await request.json();    
     const result = await generateToken(email);
 
     if (!result)
@@ -31,7 +29,6 @@ export const POST = async (request: Request) => {
       { status: 201 }
     );
   } catch (error) {
-    console.log("error: ",error);
     
     return NextResponse.json(
       { data: error, message: "Error" },

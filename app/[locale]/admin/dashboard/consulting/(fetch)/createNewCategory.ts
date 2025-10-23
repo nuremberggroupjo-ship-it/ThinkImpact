@@ -21,7 +21,6 @@ export async function createCategory(data: newCategory) {
       body: JSON.stringify(data)
     }
   );
-console.log("result.ok: ",result.ok);
 
   if (!result.ok) throw new Error("Failed to Create Category");
 

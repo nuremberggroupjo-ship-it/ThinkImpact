@@ -13,8 +13,6 @@ return NextResponse.json({data:result, message:"Logged in successfully"},{status
 
         }
     } catch (error) {
-        console.log("error: ",error);
-        
         return NextResponse.json({data:error, message:"Error in login"},{status:500})
 
     }
